@@ -1,0 +1,564 @@
+<title>Tabungan Anin❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #F1F5F2;
+  --surface: #FFFFFF;
+  --surface-2: #E6EDE8;
+  --ink: #0F2520;
+  --ink-2: #48605A;
+  --line: #D2DCD6;
+  --track: #E1E9E4;
+  --brand: #0E6A51;
+  --brand-ink: #FFFFFF;
+  --a: #2A58D8;
+  --b: #D9710B;
+  --good: #167A55;
+  --good-soft: #D5EEE3;
+  --danger: #B63A26;
+  --warn: #8A5A06;
+  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1714; --surface: #12231F; --surface-2: #1A2F29; --ink: #E7F1ED; --ink-2: #9DB5AC;
+    --line: #26413A; --track: #20372F; --brand: #3FCB98; --brand-ink: #04251A; --a: #7EA0FF; --b: #F5A353;
+    --good: #46D39D; --good-soft: #17382E; --danger: #FF937F; --warn: #E8B867; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1714; --surface: #12231F; --surface-2: #1A2F29; --ink: #E7F1ED; --ink-2: #9DB5AC;
+  --line: #26413A; --track: #20372F; --brand: #3FCB98; --brand-ink: #04251A; --a: #7EA0FF; --b: #F5A353;
+  --good: #46D39D; --good-soft: #17382E; --danger: #FF937F; --warn: #E8B867; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 15px/1.5 var(--font-body);
+  padding-block: 20px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  font-variant-numeric: tabular-nums;
+}
+h1, h2, h3, p { margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 20px; }
+
+/* header */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; line-height: 1.1; }
+.brand small { display: block; margin-top: 4px; font: 500 13px var(--font-body); letter-spacing: 0; color: var(--ink-2); }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 9px 14px; font-weight: 600; cursor: pointer; min-height: 40px; }
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.small { padding: 6px 10px; min-height: 34px; font-size: 13px; }
+.btn.ghost { background: transparent; }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+:is(button, input, select, label, a):focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.banner { border: 1px solid var(--line); background: var(--surface-2); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+
+/* summary */
+.summary { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.total { font-family: var(--font-display); font-weight: 800; font-size: clamp(34px, 7vw, 52px); letter-spacing: -0.03em; line-height: 1.05; margin-top: 6px; overflow-wrap: anywhere; }
+.total-sub { margin-top: 6px; color: var(--ink-2); font-size: 14px; }
+.flow-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.flow-stat { padding: 9px 11px; border-radius: 9px; background: var(--surface-2); min-width: 0; }
+.flow-stat span { display: block; color: var(--ink-2); font-size: 12px; font-weight: 600; }
+.flow-stat b { display: block; margin-top: 2px; font-size: 16px; overflow-wrap: anywhere; }
+.flow-stat.in b { color: var(--good); }
+.flow-stat.out b { color: var(--danger); }
+.monthly { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.monthly-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.monthly-head h2 { margin: 0; }
+.month-nav { display: flex; align-items: center; gap: 8px; }
+.month-label { min-width: 132px; text-align: center; font-weight: 700; }
+.month-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.month-stat { min-width: 0; padding: 12px; border-radius: 10px; background: var(--surface-2); }
+.month-stat span { display: block; color: var(--ink-2); font-size: 12px; font-weight: 600; }
+.month-stat b { display: block; margin-top: 4px; overflow-wrap: anywhere; }
+.month-stat.in b { color: var(--good); }
+.month-stat.out b { color: var(--danger); }
+.month-empty { margin-top: 10px; color: var(--ink-2); font-size: 13px; }
+.people { display: grid; gap: 12px; align-content: center; min-width: 0; }
+.split { display: flex; height: 12px; border-radius: 6px; overflow: hidden; background: var(--track); }
+.split span { display: block; height: 100%; transition: width .3s; }
+.person { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.person .nm { font-weight: 600; overflow-wrap: anywhere; }
+.person .sh { color: var(--ink-2); font-size: 13px; }
+.person .am { font-weight: 700; text-align: right; }
+.linkish { background: none; border: 0; padding: 0; color: var(--ink-2); text-decoration: underline; cursor: pointer; font-size: 13px; justify-self: start; }
+.dot { display: inline-block; width: 12px; height: 12px; flex: none; }
+.dot.a { background: var(--a); border-radius: 50%; }
+.dot.b { background: var(--b); border-radius: 3px; transform: rotate(45deg) scale(.85); }
+
+/* sections */
+.grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.sec-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; min-height: 36px; }
+h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.goals, .hist { display: grid; gap: 12px; }
+.hist { gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px 14px; }
+
+.goal { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.goal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.goal-name { font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 1.25; overflow-wrap: anywhere; }
+.chip { flex: none; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); }
+.chip.done { background: var(--good-soft); color: var(--good); }
+.amounts { font-size: 14px; color: var(--ink-2); }
+.amounts b { color: var(--ink); font-size: 17px; }
+.bar { position: relative; display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--track); }
+.bar .seg { height: 100%; transition: width .3s; }
+.bar .seg.a { background: var(--a); }
+.bar .seg.b { background: var(--b); }
+.bar i { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--surface); opacity: .8; }
+.contrib { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--ink-2); }
+.contrib span { display: inline-flex; align-items: center; gap: 6px; }
+.hint { font-size: 13px; color: var(--ink-2); }
+.hint.warn { color: var(--warn); }
+.goal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row .what { font-weight: 600; overflow-wrap: anywhere; }
+.row .when { font-size: 13px; color: var(--ink-2); overflow-wrap: anywhere; }
+.row .amt { font-weight: 700; text-align: right; }
+.row .amt.out { color: var(--danger); }
+.row .amt button { display: block; margin-left: auto; margin-top: 2px; background: none; border: 0; padding: 0; font-size: 12px; color: var(--ink-2); text-decoration: underline; cursor: pointer; }
+.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 28px 18px; text-align: center; display: grid; gap: 10px; justify-items: center; color: var(--ink-2); }
+.empty h3 { font-family: var(--font-display); font-size: 19px; color: var(--ink); }
+.empty p { max-width: 38ch; }
+.loading { color: var(--ink-2); padding: 20px 0; }
+
+/* dialogs */
+dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; background: var(--surface); color: var(--ink); width: min(440px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; }
+dialog::backdrop { background: rgba(6, 18, 14, .55); }
+dialog form { padding: 20px; display: grid; gap: 14px; }
+dialog h3 { font-family: var(--font-display); font-size: 21px; font-weight: 700; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .lbl { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.field input[type=text], .field input[type=date], .field select { width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; min-height: 42px; }
+.money { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 0 11px; min-height: 42px; }
+.money input { border: 0; background: transparent; width: 100%; padding: 9px 0; outline-offset: 8px; }
+.money span { color: var(--ink-2); font-weight: 600; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.seg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.seg2 input { position: absolute; opacity: 0; pointer-events: none; }
+.seg2 label { display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line); border-radius: 9px; padding: 9px 10px; min-height: 42px; cursor: pointer; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; text-align: center; }
+.seg2 input:checked + label { border-color: var(--ink); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--ink); }
+.seg2 input:focus-visible + label { outline: 2px solid var(--brand); outline-offset: 2px; }
+.err { color: var(--danger); font-size: 13px; font-weight: 600; }
+.dlg-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; max-width: calc(100vw - 32px); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 50; }
+.toast.show { opacity: 1; }
+
+@media (max-width: 820px) {
+  .summary, .grid { grid-template-columns: minmax(0, 1fr); }
+  .summary { gap: 18px; }
+}
+@media (max-width: 520px) {
+  body { padding-block: 14px 36px; }
+  .wrap { gap: 14px; }
+  .top { align-items: flex-start; }
+  .top-actions { width: 100%; }
+  .top-actions .btn { flex: 1 1 auto; padding-inline: 10px; }
+  .summary, .monthly { padding: 15px; }
+  .month-stats { grid-template-columns: 1fr; gap: 7px; }
+  .month-stat { padding: 9px 11px; }
+  .month-stat b { font-size: 15px; }
+  .row2 { grid-template-columns: 1fr; }
+  .brand { font-size: 24px; }
+  .goal-actions .btn { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .split span, .bar .seg, .toast { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Tabungan Anin❤️</div>
+    <div class="top-actions">
+      <button class="btn primary" id="btn-dep" type="button" data-act="open-dep">Setor tabungan</button>
+      <button class="btn" id="btn-withdraw" type="button" data-act="open-withdrawal">Tarik tabungan</button>
+      <button class="btn" id="btn-goal" type="button" data-act="open-goal">Target baru</button>
+    </div>
+  </header>
+  <div id="banner" class="banner" hidden></div>
+  <section class="summary" id="summary" aria-label="Ringkasan tabungan"></section>
+  <section class="monthly" aria-labelledby="h-monthly">
+    <div class="monthly-head"><h2 id="h-monthly">Ringkasan bulanan</h2><div class="month-nav"><button class="btn small" type="button" data-act="month-prev" aria-label="Bulan sebelumnya">‹</button><span id="month-label" class="month-label"></span><button class="btn small" type="button" data-act="month-next" aria-label="Bulan berikutnya">›</button></div></div>
+    <div id="monthly-stats" class="month-stats"></div>
+    <p id="month-empty" class="month-empty" hidden>Tidak ada pemasukan atau pengeluaran pada bulan ini.</p>
+  </section>
+  <div class="grid">
+    <section aria-labelledby="h-goals">
+      <div class="sec-head"><h2 id="h-goals">Target tabungan</h2></div>
+      <div id="goals" class="goals"></div>
+    </section>
+    <section aria-labelledby="h-hist">
+      <div class="sec-head"><h2 id="h-hist">Riwayat setoran</h2></div>
+      <div id="history"></div>
+    </section>
+  </div>
+</div>
+
+<dialog id="dlg-dep" aria-labelledby="t-dep">
+  <form id="f-dep" novalidate>
+    <h3 id="t-dep">Setor tabungan</h3>
+    <div class="field"><label for="dep-goal">Untuk target</label><select id="dep-goal"></select></div>
+    <div class="field">
+      <span class="lbl" id="lbl-who">Siapa yang menabung</span>
+      <div class="seg2" role="radiogroup" aria-labelledby="lbl-who">
+        <input type="radio" name="who" id="who-a" value="a"><label for="who-a"><i class="dot a"></i><span id="who-a-n"></span></label>
+        <input type="radio" name="who" id="who-b" value="b"><label for="who-b"><i class="dot b"></i><span id="who-b-n"></span></label>
+      </div>
+    </div>
+    <div class="field">
+      <span class="lbl" id="lbl-type">Jenis</span>
+      <div class="seg2" role="radiogroup" aria-labelledby="lbl-type">
+        <input type="radio" name="kind" id="kind-in" value="in" checked><label for="kind-in">Setor</label>
+        <input type="radio" name="kind" id="kind-out" value="out"><label for="kind-out">Tarik</label>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="dep-amount">Jumlah</label><div class="money"><span>Rp</span><input type="text" id="dep-amount" inputmode="numeric" autocomplete="off" placeholder="500.000"></div></div>
+      <div class="field"><label for="dep-date">Tanggal</label><input type="date" id="dep-date"></div>
+    </div>
+    <div class="field"><label for="dep-note">Catatan (boleh kosong)</label><input type="text" id="dep-note" maxlength="80" autocomplete="off" placeholder="Gaji bulan ini"></div>
+    <p class="err" id="dep-err" role="alert" hidden></p>
+    <div class="dlg-actions"><button type="button" class="btn ghost" data-close>Batal</button><button type="submit" class="btn primary">Simpan</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-goal" aria-labelledby="t-goal">
+  <form id="f-goal" novalidate>
+    <h3 id="t-goal">Target baru</h3>
+    <div class="field"><label for="goal-name">Nama target</label><input type="text" id="goal-name" maxlength="60" autocomplete="off" placeholder="Liburan ke Labuan Bajo"></div>
+    <div class="row2">
+      <div class="field"><label for="goal-target">Jumlah target</label><div class="money"><span>Rp</span><input type="text" id="goal-target" inputmode="numeric" autocomplete="off" placeholder="15.000.000"></div></div>
+      <div class="field"><label for="goal-deadline">Tenggat (boleh kosong)</label><input type="date" id="goal-deadline"></div>
+    </div>
+    <p class="err" id="goal-err" role="alert" hidden></p>
+    <div class="dlg-actions"><button type="button" class="btn ghost" data-close>Batal</button><button type="submit" class="btn primary" id="goal-submit">Simpan target</button></div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var rp = function (n) { return 'Rp ' + Math.round(n).toLocaleString('id-ID'); };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var todayStr = function () { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var parseD = function (s) { var p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+  var fmtD = function (s) {
+    var d = parseD(s), o = { day: 'numeric', month: 'short' };
+    if (d.getFullYear() !== new Date().getFullYear()) o.year = 'numeric';
+    return d.toLocaleDateString('id-ID', o);
+  };
+  var parseMoney = function (s) { return Number(String(s).replace(/\D/g, '')) || 0; };
+  var fmtInput = function (s) { var n = String(s).replace(/\D/g, '').replace(/^0+(?=\d)/, ''); return n ? Number(n).toLocaleString('id-ID') : ''; };
+
+  var state = {
+    cfg: { nameA: 'Ano', nameB: 'Arin' }, goals: [], deposits: [],
+    loaded: { cfg: false, goals: false, deposits: false },
+    db: null, localMode: false, canWrite: true, confirmKey: null, showAll: false, who: 'a', editingId: null, initializedDefaultGoal: false,
+    month: new Date().getFullYear() + '-' + pad(new Date().getMonth() + 1)
+  };
+  try { var w = localStorage.getItem('tb-who'); if (w === 'a' || w === 'b') state.who = w; } catch (e) {}
+
+  function nameOf(w) { return w === 'b' ? state.cfg.nameB : state.cfg.nameA; }
+
+  function persistLocal() {
+    localStorage.setItem('tabungan-berdua-data', JSON.stringify({ cfg: state.cfg, goals: state.goals, deposits: state.deposits }));
+  }
+  function writeRecord(collection, id, data, action) {
+    if (state.db) {
+      if (collection === 'config') return state.db.doc('app/config').set(data);
+      var ref = id ? state.db.doc(collection + '/' + id) : state.db.collection(collection);
+      if (action === 'delete') return ref.delete();
+      if (action === 'update') return ref.update(data);
+      return ref.add(data);
+    }
+    if (!state.localMode) return Promise.reject(new Error('Penyimpanan tidak tersedia.'));
+    if (collection === 'config') state.cfg = data;
+    else {
+      var items = collection === 'goals' ? state.goals : state.deposits;
+      if (action === 'delete') items = items.filter(function (item) { return item.id !== id; });
+      else if (action === 'update') items = items.map(function (item) { return item.id === id ? Object.assign({}, item, data) : item; });
+      else items = items.concat([Object.assign({ id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2) }, data)]);
+      if (collection === 'goals') state.goals = items; else state.deposits = items;
+    }
+    persistLocal(); render();
+    return Promise.resolve();
+  }
+
+  function calc() {
+    var byGoal = {}, ta = 0, tb = 0;
+    state.goals.forEach(function (g) { byGoal[g.id] = { a: 0, b: 0 }; });
+    state.deposits.forEach(function (d) {
+      var b = byGoal[d.goalId]; if (!b) return;
+      var amt = Number(d.amount) || 0;
+      if (d.who === 'b') { b.b += amt; tb += amt; } else { b.a += amt; ta += amt; }
+    });
+    return { byGoal: byGoal, ta: ta, tb: tb };
+  }
+
+  function toast(msg) {
+    var t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toast.t); toast.t = setTimeout(function () { t.classList.remove('show'); }, 3200);
+  }
+  function errMsg(e) {
+    var c = e && e.code;
+    if (c === 'quota_exceeded') return 'Penyimpanan penuh. Hapus data lama dulu.';
+    if (c === 'invalid_argument') return 'Kamu belum punya izin menyimpan. Minta pemilik halaman memberi akses Kontributor.';
+    if (c === 'resource_exhausted') return 'Terlalu cepat. Tunggu sebentar lalu coba lagi.';
+    return 'Gagal menyimpan. Coba lagi.';
+  }
+
+  /* ---------- render ---------- */
+  function renderSummary(c) {
+    var total = c.ta + c.tb;
+    var income = 0, expense = 0;
+    state.deposits.forEach(function (d) { var amount = Number(d.amount) || 0; if (amount > 0) income += amount; else expense += Math.abs(amount); });
+    var target = state.goals.reduce(function (s, g) { return s + (Number(g.target) || 0); }, 0);
+    var pos = Math.max(0, c.ta) + Math.max(0, c.tb);
+    var pa = pos > 0 ? Math.max(0, c.ta) / pos * 100 : 0, pb = pos > 0 ? Math.max(0, c.tb) / pos * 100 : 0;
+    var sub = target > 0 ? 'dari target ' + rp(target) + ' (' + Math.min(100, Math.round(total / target * 100)) + '%)' : 'Belum ada target. Buat target pertama untuk mulai.';
+    var person = function (w, amt, share) {
+      return '<div class="person"><i class="dot ' + w + '"></i><div><div class="nm">' + esc(nameOf(w)) + '</div><div class="sh">' + (pos > 0 ? Math.round(share) + '% dari setoran' : 'Belum menabung') + '</div></div><div class="am">' + rp(amt) + '</div></div>';
+    };
+    $('#summary').innerHTML =
+      '<div><div class="eyebrow">Terkumpul (bersih)</div><div class="total">' + rp(total) + '</div><p class="total-sub">' + esc(sub) + '</p><div class="flow-stats"><div class="flow-stat in"><span>Total pemasukan</span><b>' + rp(income) + '</b></div><div class="flow-stat out"><span>Total pengeluaran</span><b>' + rp(expense) + '</b></div></div></div>' +
+      '<div class="people"><div class="split" role="img" aria-label="Porsi setoran: ' + esc(nameOf('a')) + ' ' + Math.round(pa) + ' persen, ' + esc(nameOf('b')) + ' ' + Math.round(pb) + ' persen"><span style="width:' + pa + '%;background:var(--a)"></span><span style="width:' + pb + '%;background:var(--b)"></span></div>' +
+      person('a', c.ta, pa) + person('b', c.tb, pb) +
+      '</div>';
+  }
+
+  function renderMonthly() {
+    var parts = state.month.split('-').map(Number), year = parts[0], month = parts[1];
+    var monthlyIncome = 0, monthlyExpense = 0;
+    state.deposits.forEach(function (d) {
+      if (!d.date || d.date.slice(0, 7) !== state.month) return;
+      var amount = Number(d.amount) || 0;
+      if (amount > 0) monthlyIncome += amount;
+      else if (amount < 0) monthlyExpense += Math.abs(amount);
+    });
+    $('#month-label').textContent = new Date(year, month - 1, 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    $('#monthly-stats').innerHTML =
+      '<div class="month-stat in"><span>Pemasukan</span><b>' + rp(monthlyIncome) + '</b></div>' +
+      '<div class="month-stat out"><span>Pengeluaran</span><b>' + rp(monthlyExpense) + '</b></div>' +
+      '<div class="month-stat"><span>Selisih bersih</span><b>' + rp(monthlyIncome - monthlyExpense) + '</b></div>';
+    $('#month-empty').hidden = monthlyIncome !== 0 || monthlyExpense !== 0;
+  }
+
+  function goalCard(g, c) {
+    var t = Number(g.target) || 0, s = c.byGoal[g.id] || { a: 0, b: 0 }, saved = s.a + s.b;
+    var base = Math.max(t, saved, 1);
+    var wa = Math.max(0, s.a) / base * 100, wb = Math.max(0, s.b) / base * 100;
+    var pct = t > 0 ? Math.min(100, Math.round(saved / t * 100)) : 0;
+    var done = t > 0 && saved >= t, remaining = Math.max(0, t - saved);
+    var hint = '', warn = false;
+    if (done) { hint = 'Target tercapai. Selamat!'; }
+    else if (g.deadline) {
+      var days = Math.ceil((parseD(g.deadline) - parseD(todayStr())) / 86400000);
+      if (days < 0) { hint = 'Lewat tenggat ' + fmtD(g.deadline) + '. Sisa ' + rp(remaining) + '.'; warn = true; }
+      else {
+        var months = Math.max(1, Math.ceil(days / 30)), per = remaining / months;
+        hint = 'Tenggat ' + fmtD(g.deadline) + ': perlu ' + rp(per) + ' per bulan, sekitar ' + rp(per / 2) + ' per orang.';
+      }
+    } else { hint = 'Belum ada tenggat. Sisa ' + rp(remaining) + '.'; }
+    var key = 'goal:' + g.id, askDel = state.confirmKey === key;
+    var write = state.canWrite && (state.db || state.localMode);
+    return '<article class="goal">' +
+      '<div class="goal-head"><h3 class="goal-name">' + esc(g.name) + '</h3><span class="chip' + (done ? ' done' : '') + '">' + (done ? 'Tercapai' : pct + '%') + '</span></div>' +
+      '<div class="amounts"><b>' + rp(saved) + '</b> dari ' + rp(t) + '</div>' +
+      '<div class="bar" role="img" aria-label="' + pct + ' persen terkumpul"><span class="seg a" style="width:' + wa + '%"></span><span class="seg b" style="width:' + wb + '%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>' +
+      '<div class="contrib"><span><i class="dot a"></i>' + esc(nameOf('a')) + ' ' + rp(s.a) + '</span><span><i class="dot b"></i>' + esc(nameOf('b')) + ' ' + rp(s.b) + '</span></div>' +
+      '<p class="hint' + (warn ? ' warn' : '') + '">' + esc(hint) + '</p>' +
+      (write ? '<div class="goal-actions"><button class="btn small primary" type="button" data-act="open-dep" data-id="' + esc(g.id) + '">Setor</button><button class="btn small" type="button" data-act="open-withdrawal" data-id="' + esc(g.id) + '">Tarik</button><button class="btn small" type="button" data-act="edit-goal" data-id="' + esc(g.id) + '">Ubah</button><button class="btn small ' + (askDel ? 'danger' : 'ghost') + '" type="button" data-act="del-goal" data-id="' + esc(g.id) + '">' + (askDel ? 'Yakin hapus? Setoran ikut terhapus' : 'Hapus') + '</button></div>' : '') +
+      '</article>';
+  }
+
+  function renderGoals(c) {
+    var el = $('#goals');
+    if (!state.loaded.goals || !state.loaded.deposits) { el.innerHTML = '<p class="loading">Memuat tabungan…</p>'; return; }
+    if (!state.goals.length) {
+      el.innerHTML = '<div class="empty"><h3>Belum ada target</h3><p>Tulis apa yang ingin kalian capai bersama, misalnya liburan, dana darurat, atau uang muka rumah. Setelah itu catat setoran masing-masing.</p>' +
+        (state.canWrite && (state.db || state.localMode) ? '<button class="btn primary" type="button" data-act="open-goal">Buat target pertama</button>' : '') + '</div>';
+      return;
+    }
+    var sorted = state.goals.slice().sort(function (x, y) {
+      var dx = (c.byGoal[x.id].a + c.byGoal[x.id].b) >= (Number(x.target) || 0), dy = (c.byGoal[y.id].a + c.byGoal[y.id].b) >= (Number(y.target) || 0);
+      if (dx !== dy) return dx ? 1 : -1;
+      if (x.deadline && y.deadline) return x.deadline < y.deadline ? -1 : 1;
+      if (x.deadline) return -1; if (y.deadline) return 1;
+      return (x.createdAt || 0) - (y.createdAt || 0);
+    });
+    el.innerHTML = sorted.map(function (g) { return goalCard(g, c); }).join('');
+  }
+
+  function renderHistory() {
+    var el = $('#history');
+    if (!state.loaded.deposits || !state.loaded.goals) { el.innerHTML = '<p class="loading">Memuat riwayat…</p>'; return; }
+    var names = {}; state.goals.forEach(function (g) { names[g.id] = g.name; });
+    var list = state.deposits.filter(function (d) { return names[d.goalId] !== undefined; }).sort(function (x, y) {
+      if (x.date !== y.date) return x.date < y.date ? 1 : -1;
+      return (y.createdAt || 0) - (x.createdAt || 0);
+    });
+    if (!list.length) { el.innerHTML = '<div class="empty"><h3>Belum ada setoran</h3><p>Setoran yang dicatat berdua muncul di sini, terbaru di atas.</p></div>'; return; }
+    var shown = state.showAll ? list : list.slice(0, 10);
+    var write = state.canWrite && (state.db || state.localMode);
+    el.innerHTML = '<div class="hist">' + shown.map(function (d) {
+      var amt = Number(d.amount) || 0, key = 'dep:' + d.id, ask = state.confirmKey === key;
+      return '<div class="row"><i class="dot ' + (d.who === 'b' ? 'b' : 'a') + '"></i><div><div class="what">' + esc(names[d.goalId]) + '</div><div class="when">' + esc(nameOf(d.who)) + ' · ' + esc(fmtD(d.date)) + (d.note ? ' · ' + esc(d.note) : '') + '</div></div>' +
+        '<div class="amt' + (amt < 0 ? ' out' : '') + '">' + (amt < 0 ? '−' : '+') + rp(Math.abs(amt)) + (write ? '<button type="button" data-act="del-dep" data-id="' + esc(d.id) + '">' + (ask ? 'Yakin?' : 'Hapus') + '</button>' : '') + '</div></div>';
+    }).join('') + '</div>' + (list.length > 10 ? '<button class="linkish" style="margin-top:10px" type="button" data-act="toggle-all">' + (state.showAll ? 'Tampilkan lebih sedikit' : 'Tampilkan semua (' + list.length + ')') + '</button>' : '');
+  }
+
+  function render() {
+    var c = calc();
+    var write = state.canWrite && !!(state.db || state.localMode);
+    $('#btn-dep').hidden = !write; $('#btn-withdraw').hidden = !write; $('#btn-goal').hidden = !write;
+    var banner = $('#banner');
+    if (!state.db && !state.localMode && state.loaded.goals) { banner.hidden = false; banner.textContent = 'Penyimpanan lokal tidak tersedia. Periksa pengaturan browser.'; }
+    else if (state.localMode) banner.hidden = true;
+    else if (!state.canWrite) { banner.hidden = false; banner.textContent = 'Kamu hanya bisa melihat. Minta pemilik halaman memberi akses Kontributor supaya bisa mencatat setoran.'; }
+    else banner.hidden = true;
+    renderSummary(c); renderMonthly(); renderGoals(c); renderHistory();
+  }
+
+  /* ---------- dialogs ---------- */
+  function openDlg(d) { try { d.showModal(); } catch (e) { d.setAttribute('open', ''); } }
+  function closeDlg(d) { try { d.close(); } catch (e) { d.removeAttribute('open'); } }
+  function showErr(id, msg) { var e = $(id); e.textContent = msg; e.hidden = !msg; }
+
+  function openDeposit(goalId, kind) {
+    if (!state.goals.length) { toast('Buat target dulu sebelum mencatat setoran.'); return; }
+    var sel = $('#dep-goal');
+    sel.innerHTML = state.goals.map(function (g) { return '<option value="' + esc(g.id) + '">' + esc(g.name) + '</option>'; }).join('');
+    if (goalId) sel.value = goalId;
+    $('#who-a-n').textContent = state.cfg.nameA; $('#who-b-n').textContent = state.cfg.nameB;
+    $('#who-' + state.who).checked = true; $('#kind-' + (kind === 'out' ? 'out' : 'in')).checked = true;
+    $('#dep-amount').value = ''; $('#dep-note').value = ''; $('#dep-date').value = todayStr();
+    showErr('#dep-err', ''); openDlg($('#dlg-dep')); $('#dep-amount').focus();
+  }
+  function openGoal(id) {
+    state.editingId = id || null;
+    var g = id ? state.goals.filter(function (x) { return x.id === id; })[0] : null;
+    $('#t-goal').textContent = g ? 'Ubah target' : 'Target baru';
+    $('#goal-submit').textContent = g ? 'Simpan perubahan' : 'Simpan target';
+    $('#goal-name').value = g ? g.name : 'Tabungan Bersama'; $('#goal-target').value = g ? fmtInput(g.target) : fmtInput(100000000); $('#goal-deadline').value = g && g.deadline ? g.deadline : '';
+    showErr('#goal-err', ''); openDlg($('#dlg-goal')); $('#goal-name').focus();
+  }
+  /* ---------- writes ---------- */
+  var busy = false;
+  async function run(fn, okMsg, errId) {
+    if (busy || (!state.db && !state.localMode)) return false;
+    busy = true;
+    try { await fn(); if (okMsg) toast(okMsg); return true; }
+    catch (e) { var m = errMsg(e); if (errId) showErr(errId, m); else toast(m); return false; }
+    finally { busy = false; }
+  }
+
+  $('#f-dep').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var goalId = $('#dep-goal').value, who = $('#who-b').checked ? 'b' : 'a', out = $('#kind-out').checked;
+    var amount = parseMoney($('#dep-amount').value), date = $('#dep-date').value || todayStr(), note = $('#dep-note').value.trim();
+    if (!goalId) return showErr('#dep-err', 'Pilih target tabungan.');
+    if (amount <= 0) return showErr('#dep-err', 'Isi jumlah lebih dari nol.');
+    var ok = await run(function () { return writeRecord('deposits', null, { goalId: goalId, who: who, amount: out ? -amount : amount, date: date, note: note, createdAt: Date.now() }); }, out ? 'Penarikan dicatat.' : 'Setoran dicatat.', '#dep-err');
+    if (ok) { state.who = who; try { localStorage.setItem('tb-who', who); } catch (e) {} closeDlg($('#dlg-dep')); }
+  });
+  $('#f-goal').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var name = $('#goal-name').value.trim(), target = parseMoney($('#goal-target').value), deadline = $('#goal-deadline').value || '';
+    if (!name) return showErr('#goal-err', 'Isi nama target.');
+    if (target <= 0) return showErr('#goal-err', 'Isi jumlah target lebih dari nol.');
+    var id = state.editingId;
+    var ok = await run(function () {
+      return writeRecord('goals', id, { name: name, target: target, deadline: deadline, createdAt: Date.now() }, id ? 'update' : 'add');
+    }, id ? 'Target diperbarui.' : 'Target dibuat.', '#goal-err');
+    if (ok) closeDlg($('#dlg-goal'));
+  });
+  ['#dep-amount', '#goal-target'].forEach(function (s) {
+    $(s).addEventListener('input', function (e) { e.target.value = fmtInput(e.target.value); });
+  });
+
+  document.addEventListener('click', async function (ev) {
+    var t = ev.target.closest('[data-act], [data-close]'); if (!t) return;
+    if (t.hasAttribute('data-close')) { closeDlg(t.closest('dialog')); return; }
+    var act = t.getAttribute('data-act'), id = t.getAttribute('data-id');
+    if (act === 'open-dep') openDeposit(id, 'in');
+    else if (act === 'open-withdrawal') openDeposit(id, 'out');
+    else if (act === 'month-prev' || act === 'month-next') {
+      var p = state.month.split('-').map(Number), shift = act === 'month-prev' ? -1 : 1, d = new Date(p[0], p[1] - 1 + shift, 1);
+      state.month = d.getFullYear() + '-' + pad(d.getMonth() + 1); renderMonthly();
+    }
+    else if (act === 'open-goal') openGoal();
+    else if (act === 'edit-goal') openGoal(id);
+    else if (act === 'toggle-all') { state.showAll = !state.showAll; render(); }
+    else if (act === 'del-goal' || act === 'del-dep') {
+      var key = (act === 'del-goal' ? 'goal:' : 'dep:') + id;
+      if (state.confirmKey !== key) { state.confirmKey = key; render(); clearTimeout(openDlg.t); openDlg.t = setTimeout(function () { state.confirmKey = null; render(); }, 4000); return; }
+      state.confirmKey = null;
+      if (act === 'del-dep') await run(function () { return writeRecord('deposits', id, null, 'delete'); }, 'Setoran dihapus.');
+      else await run(async function () {
+        var mine = state.deposits.filter(function (d) { return d.goalId === id; });
+        for (var i = 0; i < mine.length; i++) await writeRecord('deposits', mine[i].id, null, 'delete');
+        await writeRecord('goals', id, null, 'delete');
+      }, 'Target dihapus.');
+      render();
+    }
+  });
+
+  /* ---------- boot ---------- */
+  async function boot() {
+    render();
+    var db = null, user = null;
+    try { db = await (window.claude && window.claude.use ? window.claude.use('db') : null); } catch (e) {}
+    try { user = await (window.claude && window.claude.use ? window.claude.use('user') : null); } catch (e) {}
+    if (!db) {
+      try {
+        var saved = JSON.parse(localStorage.getItem('tabungan-berdua-data') || 'null');
+        if (saved) { state.goals = saved.goals || []; state.deposits = saved.deposits || []; }
+        state.localMode = true;
+      } catch (e) { state.localMode = false; }
+      state.loaded = { cfg: true, goals: true, deposits: true };
+      render();
+      if (state.localMode && !state.goals.length) {
+        await writeRecord('goals', null, { name: 'Tabungan Bersama', target: 100000000, deadline: '', createdAt: Date.now() });
+      }
+      return;
+    }
+    state.db = db;
+    try { if (user && (await user.can('data.write')) === false) state.canWrite = false; } catch (e) {}
+    var fail = function () { state.loaded = { cfg: true, goals: true, deposits: true }; toast('Koneksi ke penyimpanan terputus. Muat ulang halaman.'); render(); };
+    db.doc('app/config').onSnapshot(function (s) {
+      state.loaded.cfg = true; render();
+    }, fail);
+    db.collection('goals').onSnapshot(function (q) {
+      state.goals = q.docs.map(function (d) { var o = d.data() || {}; o.id = d.id; return o; });
+      state.loaded.goals = true; render();
+      if (state.canWrite && !state.goals.length && !state.initializedDefaultGoal) {
+        state.initializedDefaultGoal = true;
+        writeRecord('goals', null, { name: 'Tabungan Bersama', target: 100000000, deadline: '', createdAt: Date.now() }).catch(function () { toast('Target Rp100.000.000 belum dapat dibuat.'); });
+      }
+    }, fail);
+    db.collection('deposits').onSnapshot(function (q) {
+      state.deposits = q.docs.map(function (d) { var o = d.data() || {}; o.id = d.id; return o; });
+      state.loaded.deposits = true; render();
+    }, fail);
+  }
+  boot();
+})();
+</script>
